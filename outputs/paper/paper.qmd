@@ -24,6 +24,7 @@ library("knitr")
 library("lubridate")
 library("tidyverse")
 library(rstanarm)
+library(arrow)
 ```
 \newpage
 
@@ -39,7 +40,21 @@ Despite the wealth effect of rising home prices, affordability issues remain in 
 
 Policy responses to housing market dynamics play a key role in shaping consumer behavior and broader economic outcomes. Measures aimed at cooling overheated housing markets, such as macroprudential regulation and tax policy, can influence housing affordability and household consumption decisions. Likewise, initiatives to boost the supply of affordable housing and enhance rental market stability are likely to reduce pressure on household budgets and support consumption growth.
 
-Given the multifaceted nature of the relationship between house prices and consumption, this article aims to understand the dynamics in the Canadian context. By examining historical trends, empirical evidence, and the impact of emergencies, we seek to elucidate the interplay between housing market dynamics and consumer consumption and establish a rigorous link between the new home price index and the growth rate of Canadian consumer consumption. Analytical and comprehensive insights, this study strives to inform policymakers and stakeholders and contribute to a nuanced understanding of housing consumption relationships in Canada.
+Given the multifaceted nature of the relationship between house prices and consumption, this article aims to understand the dynamics in the Canadian context. By examining historical trends, empirical evidence, and the impact of emergencies, we seek to elucidate the interplay between housing market dynamics and consumer consumption and establish a rigorous link between the new home price index and the growth rate of Canadian consumer consumption.
+The linear Model shows: 
+```{=tex}
+\[
+Y = 2.4367510 + 0.6191314X + \varepsilon 
+\]
+Where:
+\begin{itemize}
+  \item \( Y \) is the dependent variable (Increasing Rate of Consumption[base 181096]).
+  \item \( X \) is the independent variable (Increasing Rate of NHPI[base 57.2]).
+  \item \( \varepsilon \) is the error term.
+\end{itemize}
+```
+
+Analytical and comprehensive insights, this study strives to inform policymakers and stakeholders and contribute to a nuanced understanding of housing consumption relationships in Canada.
 
 
 # Data {#sec-data}
@@ -59,6 +74,10 @@ This paper was produced using using **R** [@R-base] utilizing the packages **tid
 -   **lubridate** [@R-lubridate]
 
 -   **rstanarm** [@R-rstanarm]
+
+-   **arrow**[@R-arrow]
+
+-   **caret**[@R-caret]
 
 Data :
 
@@ -456,7 +475,7 @@ nocite: '@*'
 #| warning: false
 #| message: false
 #| echo: false
-knitr::write_bib(c("base","knitr", "rmarkdown","janitor","lubridate","tidyverse","rstanarm","dplyr","ggplot2"), "references.bib")
+knitr::write_bib(c("base","knitr", "rmarkdown","janitor","lubridate","tidyverse","rstanarm","dplyr","ggplot2","arrow","caret"), "references.bib")
 
 ```
 

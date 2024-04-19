@@ -3,24 +3,24 @@
     "path": "~/Empirical Analysis/outputs/paper/paper.qmd",
     "project_path": "outputs/paper/paper.qmd",
     "type": "quarto_markdown",
-    "hash": "4133945643",
+    "hash": "0",
     "contents": "",
-    "dirty": false,
+    "dirty": true,
     "created": 1713476323487.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "67,44",
-        "scrollLine": "54"
+        "cursorPosition": "56,187",
+        "scrollLine": "43"
     },
     "folds": "",
-    "lastKnownWriteTime": 1713518065,
+    "lastKnownWriteTime": 1713520162,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1713518065614,
+    "last_content_update": 1713520362954,
     "read_only": false,
     "read_only_alternatives": []
 }

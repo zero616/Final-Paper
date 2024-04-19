@@ -1,3 +1,11 @@
+@Manual{R-arrow,
+  title = {arrow: Integration to Apache 'Arrow'},
+  author = {Neal Richardson and Ian Cook and Nic Crane and Dewey Dunnington and Romain François and Jonathan Keane and Dragoș Moldovan-Grünfeld and Jeroen Ooms and Jacob Wujciak-Jens and {Apache Arrow}},
+  year = {2024},
+  note = {R package version 15.0.1},
+  url = {https://github.com/apache/arrow/},
+}
+
 @Manual{R-base,
   title = {R: A Language and Environment for Statistical Computing},
   author = {{R Core Team}},
@@ -5,6 +13,14 @@
   address = {Vienna, Austria},
   year = {2023},
   url = {https://www.R-project.org/},
+}
+
+@Manual{R-caret,
+  title = {caret: Classification and Regression Training},
+  author = {Max Kuhn},
+  year = {2023},
+  note = {R package version 6.0-94},
+  url = {https://github.com/topepo/caret/},
 }
 
 @Manual{R-dplyr,
@@ -74,6 +90,18 @@ https://pkgs.rstudio.com/rmarkdown/},
   note = {R package version 2.0.0, 
 https://github.com/tidyverse/tidyverse},
   url = {https://tidyverse.tidyverse.org},
+}
+
+@Article{caret2008,
+  title = {Building Predictive Models in R Using the caret Package},
+  volume = {28},
+  url = {https://www.jstatsoft.org/index.php/jss/article/view/v028i05},
+  doi = {10.18637/jss.v028.i05},
+  number = {5},
+  journal = {Journal of Statistical Software},
+  author = {{Kuhn} and {Max}},
+  year = {2008},
+  pages = {1–26},
 }
 
 @Book{ggplot22016,
