@@ -1,0 +1,44 @@
+"0","library(tidyverse)"
+"0","library(janitor)"
+"0",""
+"0","# Create a sample data frame"
+"0","df <- data.frame("
+"0","  text_column = c(""Edmund Barton(1849–1920)MP for Hunter, NSW"","
+"0","                  ""John Doe(1960–)MP for City, State"","
+"0","                  ""Jane Smith(1975–1999)MP for County, Region"")"
+"0",")"
+"0",""
+"0","# Function to extract name and birth date"
+"0","extract_info <- function(text) {"
+"0","  matches <- str_extract_all(text, ""\\b\\w+\\b\\((\\d{4}–\\d{4}|\\d{4}–)\\)"")"
+"0","  "
+"0","  if (length(matches) > 0) {"
+"0","    return(matches[[1]])"
+"0","  } else {"
+"0","    return(NA)"
+"0","  }"
+"0","}"
+"0",""
+"0","# Assuming your data frame is named ""table"""
+"0","df_extracted <- table %>%"
+"0","  rowwise() %>%"
+"0","  mutate(extracted_info = list(extract_info(text_column))) %>%"
+"0","  unnest(extracted_info) %>%"
+"0","  clean_names()"
+"1","[1m[33mError[39m in `as_tibble()`:[22m
+[38;5;232m[33m![38;5;232m Column names `Term of office` and `Term of office`
+  must not be duplicated.
+Use `.name_repair` to specify repair.[39m
+[1mCaused by error in `repaired_names()`:[22m
+[33m![39m Names must be unique.
+[31m✖[39m These names are duplicated:
+  * ""Term of office"" at locations 5, 6, and 7.
+Backtrace:
+[90m  1. [39m... %>% clean_names()
+[90m  6. [39m[1mdplyr[22m:::rowwise.data.frame(.)
+[90m  7. [39mdplyr:::rowwise_df(data, vars)
+[90m  9. [39m[1m[94mtibble:::as_tibble.data.frame([39m[22mdata[1m[94m)[39m[22m
+[90m 10. [39mtibble:::lst_to_tibble(unclass(x), .rows, .name_repair)
+[90m 11. [39mtibble:::set_repaired_names(...)
+[90m 12. [39m[1m[94mtibble:::repaired_names([39m[22m...[1m[94m)[39m[22m
+"

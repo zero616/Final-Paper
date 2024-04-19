@@ -1,0 +1,131 @@
+"0","#| warning: false"
+"0","#| message: false"
+"0","#| echo: false"
+"0","citation()"
+"1","To cite R in publications use:
+
+  R Core Team (2023). _R: A Language and Environment for Statistical Computing_. R
+  Foundation for Statistical Computing, Vienna, Austria.
+  <https://www.R-project.org/>.
+
+LaTeX的用户的BibTeX条目是
+
+  @Manual{,
+    title = {R: A Language and Environment for Statistical Computing},
+    author = {{R Core Team}},
+    organization = {R Foundation for Statistical Computing},
+    address = {Vienna, Austria},
+    year = {2023},
+    url = {https://www.R-project.org/},
+  }
+
+We have invested a lot of time and effort in creating R, please cite it when using it
+for data analysis. See also ‘citation(""pkgname"")’ for citing R packages.
+"
+"0","citation(""janitor"")"
+"1","在出版物中使用程序包时引用‘janitor’:
+
+  Firke S (2023). _janitor: Simple Tools for Examining and Cleaning Dirty Data_. R
+  package version 2.2.0, <https://CRAN.R-project.org/package=janitor>.
+
+LaTeX的用户的BibTeX条目是
+
+  @Manual{,
+    title = {janitor: Simple Tools for Examining and Cleaning Dirty Data},
+    author = {Sam Firke},
+    year = {2023},
+    note = {R package version 2.2.0},
+    url = {https://CRAN.R-project.org/package=janitor},
+  }
+"
+"0","citation(""knitr"")"
+"1","在出版物中使用程序包时引用‘knitr’:
+
+  Xie Y (2023). _knitr: A General-Purpose Package for Dynamic Report Generation in
+  R_. R package version 1.45, <https://yihui.org/knitr/>.
+
+  Yihui Xie (2015) Dynamic Documents with R and knitr. 2nd edition. Chapman and
+  Hall/CRC. ISBN 978-1498716963
+
+  Yihui Xie (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In
+  Victoria Stodden, Friedrich Leisch and Roger D. Peng, editors, Implementing
+  Reproducible Computational Research. Chapman and Hall/CRC. ISBN 978-1466561595
+
+To see these entries in BibTeX format, use 'print(<citation>, bibtex=TRUE)',
+'toBibtex(.)', or set 'options(citation.bibtex.max=999)'.
+"
+"0","citation(""lubridate"")"
+"1","To cite lubridate in publications use:
+
+  Garrett Grolemund, Hadley Wickham (2011). Dates and Times Made Easy with lubridate.
+  Journal of Statistical Software, 40(3), 1-25. URL
+  https://www.jstatsoft.org/v40/i03/.
+
+LaTeX的用户的BibTeX条目是
+
+  @Article{,
+    title = {Dates and Times Made Easy with {lubridate}},
+    author = {Garrett Grolemund and Hadley Wickham},
+    journal = {Journal of Statistical Software},
+    year = {2011},
+    volume = {40},
+    number = {3},
+    pages = {1--25},
+    url = {https://www.jstatsoft.org/v40/i03/},
+  }
+"
+"0","citation(""opendatatoronto"")"
+"1","在出版物中使用程序包时引用‘opendatatoronto’:
+
+  Gelfand S (2022). _opendatatoronto: Access the City of Toronto Open Data Portal_. R
+  package version 0.1.5, <https://CRAN.R-project.org/package=opendatatoronto>.
+
+LaTeX的用户的BibTeX条目是
+
+  @Manual{,
+    title = {opendatatoronto: Access the City of Toronto Open Data Portal},
+    author = {Sharla Gelfand},
+    year = {2022},
+    note = {R package version 0.1.5},
+    url = {https://CRAN.R-project.org/package=opendatatoronto},
+  }
+"
+"0","citation(""tidyverse"")"
+"1","在出版物中使用程序包时引用‘tidyverse’:
+
+  Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes
+  A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J,
+  Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H
+  (2019). “Welcome to the tidyverse.” _Journal of Open Source Software_, *4*(43),
+  1686. doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
+
+LaTeX的用户的BibTeX条目是
+
+  @Article{,
+    title = {Welcome to the {tidyverse}},
+    author = {Hadley Wickham and Mara Averick and Jennifer Bryan and Winston Chang and Lucy D'Agostino McGowan and Romain François and Garrett Grolemund and Alex Hayes and Lionel Henry and Jim Hester and Max Kuhn and Thomas Lin Pedersen and Evan Miller and Stephan Milton Bache and Kirill Müller and Jeroen Ooms and David Robinson and Dana Paige Seidel and Vitalie Spinu and Kohske Takahashi and Davis Vaughan and Claus Wilke and Kara Woo and Hiroaki Yutani},
+    year = {2019},
+    journal = {Journal of Open Source Software},
+    volume = {4},
+    number = {43},
+    pages = {1686},
+    doi = {10.21105/joss.01686},
+  }
+"
+"0","citation(""dplyr"")"
+"1","在出版物中使用程序包时引用‘dplyr’:
+
+  Wickham H, François R, Henry L, Müller K, Vaughan D (2023). _dplyr: A Grammar of
+  Data Manipulation_. R package version 1.1.4,
+  <https://CRAN.R-project.org/package=dplyr>.
+
+LaTeX的用户的BibTeX条目是
+
+  @Manual{,
+    title = {dplyr: A Grammar of Data Manipulation},
+    author = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller and Davis Vaughan},
+    year = {2023},
+    note = {R package version 1.1.4},
+    url = {https://CRAN.R-project.org/package=dplyr},
+  }
+"

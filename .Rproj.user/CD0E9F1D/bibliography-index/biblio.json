@@ -1,0 +1,284 @@
+{
+    "sources": [
+        {
+            "URL": "https://www.R-project.org/",
+            "author": [
+                {
+                    "literal": "R Core Team"
+                }
+            ],
+            "id": "citeR",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "publisher-place": "Vienna, Austria",
+            "title": "R: A language and environment for statistical computing",
+            "title-short": "R",
+            "type": "book"
+        },
+        {
+            "DOI": "10.21105/joss.01686",
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                },
+                {
+                    "family": "Averick",
+                    "given": "Mara"
+                },
+                {
+                    "family": "Bryan",
+                    "given": "Jennifer"
+                },
+                {
+                    "family": "Chang",
+                    "given": "Winston"
+                },
+                {
+                    "family": "McGowan",
+                    "given": "Lucy D’Agostino"
+                },
+                {
+                    "family": "François",
+                    "given": "Romain"
+                },
+                {
+                    "family": "Grolemund",
+                    "given": "Garrett"
+                },
+                {
+                    "family": "Hayes",
+                    "given": "Alex"
+                },
+                {
+                    "family": "Henry",
+                    "given": "Lionel"
+                },
+                {
+                    "family": "Hester",
+                    "given": "Jim"
+                },
+                {
+                    "family": "Kuhn",
+                    "given": "Max"
+                },
+                {
+                    "family": "Pedersen",
+                    "given": "Thomas Lin"
+                },
+                {
+                    "family": "Miller",
+                    "given": "Evan"
+                },
+                {
+                    "family": "Bache",
+                    "given": "Stephan Milton"
+                },
+                {
+                    "family": "Müller",
+                    "given": "Kirill"
+                },
+                {
+                    "family": "Ooms",
+                    "given": "Jeroen"
+                },
+                {
+                    "family": "Robinson",
+                    "given": "David"
+                },
+                {
+                    "family": "Seidel",
+                    "given": "Dana Paige"
+                },
+                {
+                    "family": "Spinu",
+                    "given": "Vitalie"
+                },
+                {
+                    "family": "Takahashi",
+                    "given": "Kohske"
+                },
+                {
+                    "family": "Vaughan",
+                    "given": "Davis"
+                },
+                {
+                    "family": "Wilke",
+                    "given": "Claus"
+                },
+                {
+                    "family": "Woo",
+                    "given": "Kara"
+                },
+                {
+                    "family": "Yutani",
+                    "given": "Hiroaki"
+                }
+            ],
+            "container-title": "Journal of Open Source Software",
+            "id": "thereferencecanbewhatever",
+            "issue": "43",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "1686",
+            "title": "Welcome to the tidyverse",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "URL": "https://CRAN.R-project.org/package=Lahman",
+            "author": [
+                {
+                    "family": "Friendly",
+                    "given": "Michael"
+                },
+                {
+                    "family": "Dalzell",
+                    "given": "Chris"
+                },
+                {
+                    "family": "Monkman",
+                    "given": "Martin"
+                },
+                {
+                    "family": "Murphy",
+                    "given": "Dennis"
+                }
+            ],
+            "id": "citeLahman",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "note": "R package version 8.0-0",
+            "title": "Lahman: Sean “lahman” baseball database",
+            "title-short": "Lahman",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gebru",
+                    "given": "Timnit"
+                },
+                {
+                    "family": "Morgenstern",
+                    "given": "Jamie"
+                },
+                {
+                    "family": "Vecchione",
+                    "given": "Briana"
+                },
+                {
+                    "family": "Vaughan",
+                    "given": "Jennifer Wortman"
+                },
+                {
+                    "family": "Wallach",
+                    "given": "Hanna"
+                },
+                {
+                    "family": "Iii",
+                    "given": "Hal Daumé"
+                },
+                {
+                    "family": "Crawford",
+                    "given": "Kate"
+                }
+            ],
+            "container-title": "Communications of the ACM",
+            "id": "gebru2021datasheets",
+            "issue": "12",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "86-92",
+            "publisher": "ACM New York, NY, USA",
+            "title": "Datasheets for datasets",
+            "type": "article-journal",
+            "volume": "64"
+        },
+        {
+            "URL": "https://mc-stan.org/rstanarm/",
+            "author": [
+                {
+                    "family": "Goodrich",
+                    "given": "Ben"
+                },
+                {
+                    "family": "Gabry",
+                    "given": "Jonah"
+                },
+                {
+                    "family": "Ali",
+                    "given": "Imad"
+                },
+                {
+                    "family": "Brilleman",
+                    "given": "Sam"
+                }
+            ],
+            "id": "rstanarm",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "R package version 2.21.3",
+            "title": "Rstanarm: Bayesian applied regression modeling via Stan",
+            "title-short": "Rstanarm",
+            "type": ""
+        },
+        {
+            "DOI": "10.5281/zenodo.3960218",
+            "URL": "https://allisonhorst.github.io/palmerpenguins/",
+            "author": [
+                {
+                    "family": "Horst",
+                    "given": "Allison Marie"
+                },
+                {
+                    "family": "Hill",
+                    "given": "Alison Presmanes"
+                },
+                {
+                    "family": "Gorman",
+                    "given": "Kristen B"
+                }
+            ],
+            "id": "palmerpenguins",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "note": "R package version 0.1.0",
+            "title": "Palmerpenguins: Palmer archipelago (antarctica) penguin data",
+            "title-short": "Palmerpenguins",
+            "type": "book"
+        }
+    ],
+    "project_biblios": []
+}

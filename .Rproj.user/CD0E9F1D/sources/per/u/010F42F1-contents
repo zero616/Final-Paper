@@ -1,0 +1,34 @@
+```{r}
+library(tidyverse)
+library(janitor)
+
+# Create a sample data frame
+df <- data.frame(
+  text_column = c("Edmund Barton(1849–1920)MP for Hunter, NSW",
+                  "John Doe(1960–)MP for City, State",
+                  "Jane Smith(1975–1999)MP for County, Region")
+)
+
+# Function to extract name and birth date
+extract_info <- function(text) {
+  matches <- str_extract_all(text, "\\b\\w+\\b\\((\\d{4}–\\d{4}|\\d{4}–)\\)")
+  
+  if (length(matches) > 0) {
+    return(matches[[1]])
+  } else {
+    return(NA)
+  }
+}
+
+# Assuming your data frame is named "table"
+df_extracted <- table %>%
+  rowwise() %>%
+  mutate(extracted_info = list(extract_info(text_column))) %>%
+  unnest(extracted_info) %>%
+  clean_names()
+
+# Print the result
+print(df_extracted)
+
+```
+

@@ -1,0 +1,155 @@
+---
+title: "Life span of prime ministers of Australia"
+subtitle: "Data analysis of life span of prime ministers of Australia until 2024-2-6"
+author: 
+  - Shipeng Zhang
+thanks: "Code and data are available at: https://github.com/zero616/Mini-essay-5a."
+date: 2024-02-6
+date-format: long
+format: pdf
+number-sections: true
+bibliography: references.bib
+editor: 
+  markdown: 
+    wrap: 72
+---
+# Table and Graph
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+#load necessary packages
+library(janitor)
+library(stringr)
+library(rvest)
+library(dplyr)
+library(tidyverse)
+
+# Set the URL for the Wikipedia page
+url <- "https://en.wikipedia.org/wiki/List_of_prime_ministers_of_Australia"
+
+# Read the HTML content of the page
+webpage <- read_html(url)
+
+# Updated XPath expression to target the correct table
+table <- webpage |> html_element(".wikitable") |>
+  html_table()
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+# Clean column names
+colnames(table) <- table[1, ] %>%
+  str_replace_all("[^[:alnum:]]", "_") %>%
+  tolower()
+# Remove the first row (column names) and clean data
+table_cleaned <- table[-1, ] |> 
+  clean_names() |> 
+  select(name_birth_death_constituency) |> 
+  filter(name_birth_death_constituency != "Name_Birth_Death_Constituency") |> 
+  distinct() 
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+initial_clean <-
+  table_cleaned |>
+  separate(
+    name_birth_death_constituency, into = c("name", "not_name"), sep = "\\(", extra = "merge",
+  ) |> 
+  mutate(date = str_extract(not_name, "[[:digit:]]{4}–[[:digit:]]{4}"),
+         born = str_extract(not_name, "b.[[:space:]][[:digit:]]{4}")
+         ) |>
+  select(name, date, born)
+```
+```{r}
+#| label: tbl-Death
+#| tbl-cap: Prime Ministers Death (until 2024-2-6)
+#| warning: false
+#| message: false
+#| echo: false
+cleaned_data <-
+  initial_clean |>
+  separate(date, into = c("birth", "died"), 
+           sep = "–") |>   # PMs who have died have their birth and death years 
+  # separated by a hyphen, but we need to be careful with the hyphen as it seems 
+  # to be a slightly odd type of hyphen and we need to copy/paste it.
+  mutate(
+    born = str_remove_all(born, "b.[[:space:]]"),
+    birth = if_else(!is.na(born), born, birth)
+  ) |> # Alive PMs have slightly different format
+  select(-born) |>
+  rename(born = birth) |> 
+  mutate(across(c(born, died), as.integer)) |> 
+  mutate(Age_at_Death = died - born) |> 
+  distinct() # Some of the PMs had two goes at it.
+
+knitr::kable(cleaned_data,'markdown',col.names = c("Name", "Born Date", "Died Date","Age of Death"),align = 'c',
+                      
+                      caption = "Life span of Prime ministers of Australia")
+```
+```{r}
+#| label: fig-death-by-year
+#| fig-cap: Death analysis by year
+#| warning: false
+#| message: false
+#| echo: false
+cleaned_data |>
+  mutate(
+    still_alive = if_else(is.na(died), "Yes", "No"),
+    died = if_else(is.na(died), as.integer(2023), died)
+  ) |>
+  mutate(name = as_factor(name)) |>
+  ggplot(
+    aes(x = born, xend = died, y = name, yend = name, color = still_alive)
+    ) +
+  geom_segment() +
+  labs(
+    x = "Year of birth", y = "Prime minister", color = "PM is currently alive"
+    ) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+```
+# Findings
+
+## From table
+@tbl-Death above provides a complete list of the life spans of Australian Prime Ministers, including their names, dates of birth and deaths. By analyzing this data, we can look at the life span of Australian politicians over the years.
+
+## Data sources and collection process
+
+The data comes from the Wikipedia page titled "List of prime ministers of Australia". The web scraping process involves extracting information from the HTML structure of the page, specifically targeting the relevant tables containing the Prime Minister’s details. The source data table contains very detailed information such as name, term, party affiliation, constituency, etc. However, in order to study the life span of Australian prime ministers, I deleted all data except name-year of birth and death. After some sorting, I summarized four types of data including the Prime Minister's name, year of birth and death, and age at death.
+
+## Challenge and Enjoyment
+
+One challenge encountered along the way was using regular expressions to get the Prime Minister's name and birthday.
+I had to start working on the basics of regular expressions. I also had difficulties trying to distinguish living prime ministers and had to spend a lot of time solving them.
+
+Despite the challenges, the process became fun as I dug deeper into exploring and visualizing the data. After looking at the images of each prime minister's life span, I discovered some deeper research themes from the images that could be analyzed. For example, the distribution pattern of prime life span, factors that may affect life span, etc. This discovery fueled my curiosity about the stories behind the data.
+
+## Reflection and future improvements
+
+Some improvements I might make in future similar projects include more flexible data cleaning methods and more complex regular expressions to handle different formats of information. In addition, I will also consider introducing some automated tools to help identify and deal with potential data quality issues and improve the efficiency of the entire process.
+\newpage
+
+## References
+---
+nocite: '@*'
+---
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+knitr::write_bib(c("base","stringr", "rmarkdown","janitor","tidyverse","rvest","dplyr"), "references.bib")
+new_entry <- "@misc{Wikipedia_2023, url={https://en.wikipedia.org/wiki/List_of_prime_ministers_of_Australia}, journal={Wikipedia}, publisher={Wikimedia Foundation}, year={2023}, month={Dec}} 
+}"
+
+# Append the new entry to the "references.bib" file
+write(new_entry, "references.bib", append = TRUE)
+
+```

@@ -1,0 +1,31 @@
+{
+    "id": "D9C1684D",
+    "path": "~/TermPaper1/TermPaper1/outputs/paper/paper.qmd",
+    "project_path": "outputs/paper/paper.qmd",
+    "type": "quarto_markdown",
+    "hash": "3529063113",
+    "contents": "",
+    "dirty": false,
+    "created": 1707203652858.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "312,6",
+        "scrollLine": "0",
+        "rmdVisualMode": "false",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "915:0",
+        "rmdVisualWrapConfigured": "true",
+        "docOutlineVisible": "1"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1706165173,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1706165173,
+    "read_only": false,
+    "read_only_alternatives": []
+}
