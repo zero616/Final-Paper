@@ -1,10 +1,10 @@
 ---
-title: "Toronto's homeless death toll over the years shows the dangers of addiction's epidemic"
-subtitle: "Data analysis of homeless deaths in Toronto from 2017 to 2023"
+title: "Predicting Canadian residents’ consumption amount through house prices"
+subtitle: "Data analysis of NHPI and Consumption of Canada from 2000 to 2009"
 author: 
   - Shipeng Zhang
-thanks: "Code and data are available at: https://github.com/zero616/Homeless_Death_Analysis."
-date: 2024-01-22
+thanks: "Code and data are available at: https://github.com/zero616/NHPI-Analysis"
+date: 2024-04-18
 date-format: long
 abstract: "In Canada, the size and volatility of housing wealth has led many to believe that changes in housing prices have a significant impact on aggregate consumption. This study examines regional differences in housing price changes across Canada and their relationship to household spending patterns. Using forecasting models, we aim to estimate consumption levels in different regions based on NHPI data. However, limitations include potential inaccuracies in the NHPI data, assumptions about the relationship between house prices and consumption, and the model's ability to capture the full complexity of regional dynamics. Further research is needed to validate the model's predictions and explore other factors that influence consumer behavior."
 format: pdf
@@ -22,12 +22,13 @@ editor:
 library("janitor")
 library("knitr")
 library("lubridate")
-library("opendatatoronto")
 library("tidyverse")
 library(rstanarm)
 ```
+\newpage
 
 # Introduction
+
 In recent years, the Canadian real estate market has been the subject of extensive analysis and debate due to its significant impact on the economy and the well-being of its citizens. Canadian home prices have experienced significant volatility, raising concerns about affordability, financial stability and the broader impact on consumer consumption. Understanding the complex relationship between house prices and consumption is critical for policymakers, economists and stakeholders.
 
 Canada's real estate market has experienced significant growth over the past few decades. Urban centers such as Toronto, Vancouver, and Montreal have become hot spots for real estate investment, driving up real estate values and reshaping the socioeconomic landscape. Historically low interest rates, demographic changes and foreign investment have fueled demand, leading to unprecedented price increases in some areas.
@@ -43,13 +44,32 @@ Given the multifaceted nature of the relationship between house prices and consu
 
 # Data {#sec-data}
 
-This paper was produced using the R statistical programming language (R Core Team 2022).
-here was used to reference file locations (Müller 2020). The data was examined and cleaned
-using the packages janitor (Firke 2021), dplyr (Wickham et al. 2023), and tidyverse (Wickham
-et al. 2019). Tables were made knitr (Xie 2023) and broom (0.7.11 2021), and formatted with
-kableExtra (Zhu 2021). ggplot2 (Wickham 2016) was used to plot and scale the graphs.
+This paper was produced using using **R** [@R-base] utilizing the packages **tidyverse** [@R-tidyverse], which made use of the following packages:
+
+-   **ggplot2** [@R-ggplot2]
+
+-   **dplyr** [@R-dplyr]
+
+-   **janitor** [@R-janitor]
+
+-   **rmarkdown** [@R-rmarkdown]
+
+-   **knitr** [@R-knitr] 
+
+-   **lubridate** [@R-lubridate]
+
+-   **rstanarm** [@R-rstanarm]
+
+Data :
+
+- Detailed household final consumption expenditure, Canada, quarterly - Dataset
+- URL: https://www150.statcan.gc.ca/n1/tbl/csv/36100124-fra.zip
+
+- New housing price index, monthly - Dataset
+- URL: https://www150.statcan.gc.ca/n1/tbl/csv/18100205-eng.zip
 
 ## The Dataset
+
 This dataset amalgamates information sourced from two key datasets available on the Canadian government's open platform: the "New Housing Price Index, Monthly" and the "Detailed Household Final Consumption Expenditure, Canada, Quarterly."
 
 The New Housing Price Index (NHPI) is a monthly metric tracking variations in sales prices of newly constructed homes across time. It encompasses various housing categories, including detached houses, semi-detached houses, and townhouses. Additionally, the survey incorporates builders' assessments of the current market value of land, which are then independently indexed to create land value series. Similarly, the structural value of the properties is indexed and presented as a house series. Overall, the NHPI serves as a useful tool for gauging fluctuations within the Canadian real estate sector.
@@ -62,6 +82,7 @@ Consumption figures represent the total consumption by Canadian residents during
 NHPI encapsulates Canada's national New Housing Price Index for the same period.
 
 ## Data Cleaning
+
 ```{r}
 #| label: tbl-Sample-cost-raw
 #| tbl-cap: Sample Table of Canada Consumtion change data (2000-2009)
@@ -81,7 +102,7 @@ knitr::kable(sample_data_1,'markdown',align = 'c')
 
 
 ```
-
+@tbl-Sample-cost-raw is the original data after excluding invalid information. Value represents the consumption in millions of Canadian dollars, while prices are calculated based on whether they are based on constant prices in 2017. Seasonal.adjustment represents whether seasonally adjusted at quarterly rates. And the estimator represents the type of consumption. In order to simplify the analysis, we only consider consumption at constant prices in 2017 and seasonally adjusted at quarterly rates, which can eliminate the interference of inflation on the data. In addition, we only study total consumption, not classification Research. So in data cleaning we only keep the useful parts.
 ```{r}
 #| label: tbl-Sample-NHPI-raw
 #| tbl-cap: Sample Table of Canada Consumtion and NHPI change (2000-2009)
@@ -95,6 +116,23 @@ sample_data_2 <- head(NHPI_raw_data, 6)
 # Print the table
 knitr::kable(sample_data_2,'markdown',align = 'c')
 ```
+@tbl-Sample-NHPI-raw is the NHPI data set after eliminating invalid information. NHPI is classified by time, region (GEO) and NHPI. In this data set, NHPI is divided into three types: all, only houses, and only land. In order to make the analysis simple and accurate, we only Consider all NHPI values. And only consider the NHPI across Canada rather than by region when fitting the model.
+```{r}
+#| label: tbl-Consumption-increasing
+#| tbl-cap: Sample Table for consumption data (2000-2009)
+#| warning: false
+#| message: false
+#| echo: false
+file_path <- "../../outputs/data/analysis_data.csv"
+analysis_data <- read.csv(file_path)
+consumption_data <- analysis_data %>%
+  select(-c(NHPI,Increasing_Rate_NHPI))
+sample_consumption_data <- head(consumption_data, 6)
+knitr::kable(sample_consumption_data,'markdown',col.names = c("Ref-Date", "Consumption (Million)", "Increasing Rate of Consumption"),align = 'c')
+```
+
+@tbl-Consumption-increasing provides the consumption of all Canadian residents in the data set (millions of Canadian dollars), sorted by time.
+The growth rate is calculated based on consumption from 2000 to January.
 
 ```{r}
 #| label: tbl-Sample
@@ -103,8 +141,7 @@ knitr::kable(sample_data_2,'markdown',align = 'c')
 #| message: false
 #| echo: false
 #read file
-file_path <- "../../outputs/data/analysis_data.csv"
-analysis_data <- read.csv(file_path)
+
 sample_data <- head(analysis_data, 6)
 # Print the table
 knitr::kable(sample_data,'markdown',col.names = c("Ref-Date", "Consumption (Million)", "Increasing Rate of Consumption", "NHPI", "Increasing Rate of Consumption"),align = 'c')
@@ -112,32 +149,12 @@ knitr::kable(sample_data,'markdown',col.names = c("Ref-Date", "Consumption (Mill
 
 ```
 
-@tbl-Sample provides the total number of deaths summarized by age
-group and cause of death in the data set, outlining the key variables
-available for analysis: cause of death, age group and number of deaths.
+@tbl-Sample provides total consumption, consumption growth rate and NHPI value and NHPI growth rate sorted by time.
 
-```{r}
-#| label: tbl-Consumption-increasing
-#| tbl-cap: Sample Table for consumption data (2000-2009)
-#| warning: false
-#| message: false
-#| echo: false
 
-consumption_data <- analysis_data %>%
-  select(-c(NHPI,Increasing_Rate_NHPI))
-sample_consumption_data <- head(consumption_data, 6)
-knitr::kable(sample_consumption_data,'markdown',col.names = c("Ref-Date", "Consumption (Million)", "Increasing Rate of Consumption"),align = 'c')
-```
 
-@tbl-Consumption-increasing provides the total number of deaths in the data set
-summarized by year of death and cause of death, outlining the key
-variables in the analysis of addiction harm to homeless people: cause of
-death, time of death, and number of deaths.
-
-```{r}
-
-```
 # Model
+
 Null hypothesis: the relationship between the quarterly national NHPI growth rate and the growth rate of Canada's total final consumption is not linear
 Alternative hypothesis: the relationship between the quarterly national NHPI growth rate and the growth rate of Canada's total final consumption is linear
 Linear regression analysis was performed to test the hypothesis and determine whether there was a statistically significant relationship between the variables. A low p-value(typically less than a chosen significance level, often 0.05) for the linear regression coefficient will provide evidence against the null hypothesis, indicating
@@ -217,8 +234,6 @@ This research used a linear regression model to investigate the association betw
 @fig-model-plot illustrates the relationship between NHPI growth rate and consumption growth rate, where the number of data points with NHPI growth rate on the x-axis and consumption growth rate on the y-axis of the scatterplot shows a clear upward slope. The fitted regression line represents the overall trend of the data, where the slope indicates that the consumption growth rate increases as the NHPI growth rate increases.
 
 
-\newpage
-
 # Discussion
 ```{r}
 #| label: fig-consumption-plot
@@ -252,7 +267,7 @@ fig_data$REF_DATE <- as.Date(paste(fig_data$REF_DATE, "-01", sep = ""), format =
 
 ## House Prices and Consumer consumption Trends
 
-After analyzes historical trends in the New House Price Index (NHPI) and fluctuations in household consumer consumption. There is a significant correlation between the two.
+After analyzes historical trends in the New House Price Index (NHPI) in @fig-NHPI-plot and fluctuations in household consumer consumption which in @fig-consumption-plot. There is a significant correlation between the two.
 The first point to focus on is the wealth effect, where homeowners typically experience an increase in wealth when house prices rise. Increased wealth can boost consumer confidence and discretionary consumption as homeowners feel more financially secure. Conversely, falling home prices may lead to less consumer consumption as homeowners feel less wealthy.
 Second, fluctuations in the housing market, such as changes in housing affordability, mortgage rates, and housing supply and demand dynamics, may affect the NHPI and consumer consumption. For example, low mortgage rates may stimulate demand for housing, causing home prices to rise and increasing consumer consumption on related goods and services (e.g., home furnishings, renovations).
 Consumer Sentiment: Consumer sentiment and perceptions of future economic prospects can influence consumption decisions. Positive sentiment may lead to increased consumer consumption, including housing-related expenditures, while negative sentiment may have the opposite effect. For older homeowners, rising house prices will stimulate an increase in consumer consumption. For young renters, rising house prices will lead to an increase in rents, and high rents will lead to a decrease in consumer consumption.
@@ -409,7 +424,7 @@ ggplot(fig_data, aes(x = Date, y = Predicted_Consumption)) +
   labs(x = "Date", y = "Consumption")
 
 ```
-@fig-Cost-toronto-plot shows the Predict Consumption changes in Toronto. 
+@fig-Cost-Toronto-plot shows the Predict Consumption changes in Toronto. 
 @fig-Cost-Vancouver-plot x shows the Predict Consumption changes in Vancouver.
 @fig-Cost-Regina-plot x shows the Predict Consumption changes in Regina.
 
@@ -430,6 +445,9 @@ Additionally, the model's accuracy may be affected by the quality and reliabilit
 Furthermore, the model may not capture the full complexity of regional differences in housing markets and consumer behavior. Factors such as cultural preferences, demographic trends, and local economic conditions could influence consumption patterns in ways that aren't fully accounted for in the model.
 
 Overall, while using NHPI data to predict consumption levels is a promising approach, it's important to interpret the results with caution and consider the broader context and potential limitations of the model.
+
+\newpage
+
 ## References
 ---
 nocite: '@*'
@@ -438,19 +456,7 @@ nocite: '@*'
 #| warning: false
 #| message: false
 #| echo: false
-knitr::write_bib(c("base","knitr", "rmarkdown","janitor","lubridate","tidyverse","opendatatoronto","dplyr"), "references.bib")
-new_entry <- "@misc{Opioid_overdoses_among_homeless_people_rose_dramatically_2023,
-  title = {Opioid overdoses among homeless people rose dramatically: Ontario study},
-  author = {},
-  howpublished = {\\url{https://toronto.citynews.ca/2023/10/17/opioid-overdose-deaths-homeless-ontario/}},
-  journal = {CityNews Toronto},
-  year = {2023},
-  month = {Oct},
-  note = {Retrieved from \\url{https://toronto.citynews.ca/2023/10/17/opioid-overdose-deaths-homeless-ontario/}}
-}"
-
-# Append the new entry to the "references.bib" file
-write(new_entry, "references.bib", append = TRUE)
+knitr::write_bib(c("base","knitr", "rmarkdown","janitor","lubridate","tidyverse","rstanarm","dplyr","ggplot2"), "references.bib")
 
 ```
 
