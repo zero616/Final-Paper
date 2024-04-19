@@ -6,7 +6,7 @@ This project analyzes Data analysis of NHPI and Consumption of Canada from 2000 
 
 ## File Structure
 ```
-Homeless_Death_Analysis
+Empirical Analysis
 |   .gitignore
 |   .RData
 |   .Rhistory
