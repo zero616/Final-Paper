@@ -1,24 +1,24 @@
-# Homeless Death Analysis in Toronto
+# Predicting Canadian residents’ consumption amount through house prices
 
 ## Overview
 
-This project analyzes the tragic reality of homelessness in Toronto, focusing on the impact of drug addiction by examining homeless death toll data from 2017 to 2023. The findings reveal a concerning rise in addiction-related homeless deaths over the years.
+This project analyzes Data analysis of NHPI and Consumption of Canada from 2000 to 2009
 
 ## File Structure
 ```
-Homeless_Death_Analysis
+Empirical Analysis
 |   .gitignore
 |   .RData
 |   .Rhistory
-|   Homeless_Death_Analysis.Rproj
+|   Empirical Analysis.Rproj
 |   LICENSE
 |   README.md
 |   
 +---inputs  
 |   +---data
 |   |       plane_data.csv
-|   |       raw_data.csv
-|   |       
+|   |       raw_data_NHPI.csv
+|   |       raw_data_cost.csv
 |   +---literature
 |   |       Alexander-ProjectOfStateLevel.pdf
 |   |       
@@ -32,8 +32,8 @@ Homeless_Death_Analysis
 +---outputs
 |   +---data
 |   |       analysis_data.csv
-|   |       cleaned_data.csv
-|   |       
+|   |       cleaned_data_NHPI.csv
+|   |       cleaned_data_cost.csv
 |   \---paper
 |           datasheet_template.pdf
 |           datasheet_template.qmd
@@ -47,27 +47,36 @@ Homeless_Death_Analysis
         02-data_cleaning.R
         03-test_data.R
         04-model.R
+        05-styer.R
 ```
 
 ## Data Source
 
-The data set used in this analysis was obtained from the City of Toronto's OpenDataToronto Library. It includes information such as year of death, cause of death, age group, gender, and number of people.
+The data set used in this analysis was obtained from the Open Gov of Canada
 
 ## Installation
 
 To run the analysis, you need R and the following R packages:
 
-- janitor
-- knitr
-- lubridate
-- opendatatoronto
-- tidyverse
+-   **ggplot2** [@R-ggplot2]
 
-You can install these packages using the following R code:
+-   **dplyr** [@R-dplyr]
 
-```{r}
-install.packages(c("janitor", "knitr", "lubridate", "opendatatoronto", "tidyverse"))
-```
+-   **janitor** [@R-janitor]
+
+-   **rmarkdown** [@R-rmarkdown]
+
+-   **knitr** [@R-knitr] 
+
+-   **lubridate** [@R-lubridate]
+
+-   **rstanarm** [@R-rstanarm]
+
+-   **arrow**[@R-arrow]
+
+-   **caret**[@R-caret]
+-   tidyverse
+
 # Statement on LLM Usage
 
 This project does not make use of any Language Model (LLM) in its analysis, code, or documentation.
